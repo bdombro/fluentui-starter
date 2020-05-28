@@ -1,7 +1,7 @@
 import { AnimationClassNames, getFocusStyle } from '@fluentui/react';
 
-export const getStyles = props => {
-  const {
+export function getStyles (
+  {
     isSelected,
     hasChildren,
     nestingLevel,
@@ -10,7 +10,8 @@ export const getStyles = props => {
     isChildLinkSelected,
     hasGroupName,
     theme
-  } = props;
+  }
+) {
   const { semanticColors, fonts } = theme;
 
   const navFontSize = fonts.medium.fontSize;

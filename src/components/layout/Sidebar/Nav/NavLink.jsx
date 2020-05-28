@@ -61,20 +61,20 @@ export function NavLink (
     >
       <div className={rootClassName} aria-hidden="true">
         <hr className={barClassName} />
-        {leftIconName ? (
+        {!!leftIconName && (
           <Icon iconName={leftIconName} className={iconClassName} />
-        ) : null}
-        {content ? (
+        )}
+        {!!content && (
           <div className={mergeStyles(textClassName, computedTextWidth)}>
             {content}
           </div>
-        ) : null}
-        {rightIconName ? (
+        )}
+        {!!rightIconName && (
           <Icon
             iconName={rightIconName}
             className={mergeStyles(iconClassName, fixedIconWidth)}
           />
-        ) : null}
+        )}
       </div>
     </a>
   );

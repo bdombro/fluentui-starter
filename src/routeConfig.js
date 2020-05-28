@@ -25,12 +25,14 @@ const routeConfig = hierarchize(
     key: 'home',
     name: 'Home',
     icon: 'Home',
+    description: 'This is a description of the home page.',
     path: '/',
     component: React.lazy(() => import('./components/pages/Dashboard')),
     children: [
       {
         key: 'login',
         name: 'Login',
+        description: 'This is a description of the login page.',
         isPublic: true,
         isHidden: true,
         component: React.lazy(() => import('./components/pages/Login')),
@@ -38,20 +40,24 @@ const routeConfig = hierarchize(
       {
         key: 'profile',
         name: 'Profile',
+        description: 'This is a description of the profile page.',
         isHidden: true
       },
       {
         key: 'order',
         name: 'Order',
         icon: 'visualizeApp',
+        description: 'This is a description of the order page.',
         children: [
           {
             key: 'purchase-order',
             name: 'Purchase Order',
+            description: 'This is a description of the po page.',
           },
           {
             key: 'sales-order',
-            name: 'Sales Order'
+            name: 'Sales Order',
+            description: 'This is a description of the Sales Order page.',
           }
         ]
       },
@@ -59,34 +65,41 @@ const routeConfig = hierarchize(
         key: 'mangement',
         name: 'System Management',
         icon: 'managementApp',
+        description: 'This is a description of the system mgmt page.',
         children: [
           {
             key: 'organization',
             name: 'Organization',
-            icon: 'Org'
+            icon: 'Org',
+            description: 'This is a description of the org page.'
           },
           {
             key: 'user',
             name: 'User',
-            icon: 'People'
+            icon: 'People',
+            description: 'This is a description of the user page.'
           },
           {
             key: 'authority',
             name: 'Authority',
-            icon: 'SecurityGroup'
+            icon: 'SecurityGroup',
+            description: 'This is a description of the authority page.'
           },
           {
             key: 'settings',
             name: 'Settings',
             icon: 'Settings',
+            description: 'This is a description of the settings page.',
             children: [
               {
                 key: 'list',
-                name: 'List'
+                name: 'List',
+                description: 'This is a description of the list page.',
               },
               {
                 key: 'unit',
-                name: 'Unit'
+                name: 'Unit',
+                description: 'This is a description of the unit page.',
               }
             ]
           }
@@ -98,6 +111,6 @@ const routeConfig = hierarchize(
   pathGenerator
 );
 
-console.log(routeConfig);
+// console.log(routeConfig);
 
 export default routeConfig;

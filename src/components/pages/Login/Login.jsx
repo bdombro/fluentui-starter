@@ -84,6 +84,8 @@ function LoginForm({ theme, styles }) {
               control={control}
               label="Username"
               autoComplete="username"
+              autoCapitalize="off"
+              autoCorrect="off"
               errorMessage={getErrorMessage('username')}
               autoFocus
               minLength={3}
@@ -100,15 +102,12 @@ function LoginForm({ theme, styles }) {
             />
 
             <Controller
-              as={
-                <TextField
-                  label="Password"
-                  type="password"
-                  autoComplete="current-password"
-                  errorMessage={getErrorMessage('password')}
-                />
-              }
+              as={TextField}
               name="password"
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              errorMessage={getErrorMessage('password')}
               control={control}
               defaultValue=""
               minLength={4}
