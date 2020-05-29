@@ -1,9 +1,10 @@
 import React from 'react';
-import { Stack, styled, classNamesFunction } from '@fluentui/react';
-import { Sidebar } from '../Sidebar';
-import { TopMenu } from '../TopMenu';
+import {Stack, styled, classNamesFunction} from '@fluentui/react';
+import {Sidebar} from '../Sidebar';
+import {TopMenu} from '../TopMenu';
+import {IonPage, IonRouterOutlet} from "@ionic/react";
 
-const getStyles = ({ theme }) => {
+const getStyles = ({theme}) => {
   return {
     root: {},
     sidebar: {},
@@ -16,16 +17,22 @@ const getStyles = ({ theme }) => {
 
 const getClassNames = classNamesFunction();
 
-function MasterLayoutComponent({ children, theme, styles }) {
-  const classNames = getClassNames(styles, { theme });
+function MasterLayoutComponent({children, theme, styles}) {
+  const classNames = getClassNames(styles, {theme});
   return (
     <Stack horizontal className={classNames.root}>
       <Stack.Item grow={false} className={classNames.sidebar}>
-        <Sidebar />
+        <Sidebar/>
       </Stack.Item>
       <Stack.Item grow={true}>
-        <TopMenu />
-        <Stack className={classNames.contentWrapper}>{children}</Stack>
+        <TopMenu/>
+        <Stack className={classNames.contentWrapper}>
+          <IonRouterOutlet style={{position: 'relative'}}>
+            <IonPage>
+              {children}
+            </IonPage>
+          </IonRouterOutlet>
+        </Stack>
       </Stack.Item>
     </Stack>
   );

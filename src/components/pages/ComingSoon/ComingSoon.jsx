@@ -26,7 +26,7 @@ export default function NoMatch({route}) {
   }, [route.path]);
 
   return (
-    <div>
+    <div style={{minHeight: "100vh"}}>
       <h3>Coming soon.</h3>
       <p>
         The requested page <code>{route.path}</code> is coming soon.

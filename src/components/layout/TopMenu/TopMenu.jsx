@@ -24,6 +24,7 @@ function TopMenuComponent({ styles, theme }) {
       horizontal
       horizontalAlign="end"
       className={classNames.root}
+      style={{ background: "gray"}}
       tokens={{ childrenGap: '1em' }}>
       <UserMenu />
       <ThemeToggle />
