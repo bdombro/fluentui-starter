@@ -1,6 +1,6 @@
 import React from 'react';
 import { CommandBarButton } from '@fluentui/react';
-import { useTheme, ThemeList } from '../../util/theme';
+import { useTheme, ThemeList } from '../../../state/theme';
 
 export function ThemeToggle({ as = CommandBarButton }) {
   const ButtonComponent = as;

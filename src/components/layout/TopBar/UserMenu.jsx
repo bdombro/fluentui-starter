@@ -1,6 +1,6 @@
 import React from 'react';
 import { CommandBarButton } from '@fluentui/react';
-import { useAuthentication } from '../../util/authentication';
+import { useAuthentication } from '../../../state/authentication';
 import { useHistory } from 'react-router-dom';
 
 export function UserMenu() {

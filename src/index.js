@@ -1,21 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { initializeIcons } from '@uifabric/icons';
+import {initializeIcons} from '@uifabric/icons';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { AuthenticationProvider } from './components/util/authentication';
-import { ThemeProvider } from './components/util/theme';
+import Providers from "./state";
 
 initializeIcons();
 
 ReactDOM.render(
-  <AuthenticationProvider>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </AuthenticationProvider>,
+  <Providers>
+    <App/>
+  </Providers>,
   document.getElementById('root')
 );
 

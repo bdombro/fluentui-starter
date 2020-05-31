@@ -1,15 +1,11 @@
 import React from 'react';
 import isArray from 'lodash/isArray';
 import {useHistory} from 'react-router-dom';
-import {NavToggler} from './Nav';
+import {SidebarInner} from './Nav';
 import routeConfig from '../../../routeConfig';
 import useRoutePath from '../../util/route/useRoutePath';
 
-function isVisible(route) {
-  return !route.isHidden;
-}
-
-export function Sidebar() {
+export const Sidebar = React.memo(() => {
   const history = useHistory();
   const {current, paths} = useRoutePath();
 
@@ -30,18 +26,6 @@ export function Sidebar() {
 
   const navLinkGroups = [
     {
-      links: [
-        {
-          key: 'Collapse',
-          name: 'Collapsed',
-          alternateText: 'Expanded',
-          icon: 'GlobalNavButton',
-          title: 'Collapse'
-        }
-      ],
-      groupType: 'ToggleGroup'
-    },
-    {
       links: [homeLink, ...topPageLinks],
       groupType: 'MenuGroup'
     },
@@ -49,12 +33,14 @@ export function Sidebar() {
   ];
 
   return (
-    <NavToggler
+    <SidebarInner
       groups={navLinkGroups}
-      selectedKey={current?.uniqueKey}
-    />
+      selectedKey={current?.uniqueKey} />
   );
 
+  function isVisible(route) {
+    return !route.isHidden;
+  }
 
   function mapRouteToNavLink(route, deeply = true) {
     return {
@@ -86,4 +72,4 @@ export function Sidebar() {
   function hasChildren(route) {
     return route?.children?.filter(isVisible).length;
   }
-}
+});

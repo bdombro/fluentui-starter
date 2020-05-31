@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-export default function Dashboard() {
+function Dashboard() {
   return (
     <div>
       <h3>Dashboard Page</h3>
@@ -75,3 +75,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default React.memo(Dashboard);

@@ -1,7 +1,7 @@
 import React from 'react';
 import useMetaTags from 'react-metatags-hook'
 
-export default function NoMatch({route}) {
+function NoMatch({route}) {
   useMetaTags({
     title: route.name,
     description: route.description,
@@ -34,3 +34,5 @@ export default function NoMatch({route}) {
     </div>
   );
 }
+
+export default React.memo(NoMatch);

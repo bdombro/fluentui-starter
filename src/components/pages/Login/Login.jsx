@@ -12,7 +12,7 @@ import {
 } from '@fluentui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useAuthentication } from '../../util/authentication';
+import { useAuthentication } from '../../../state/authentication';
 import { ThemeToggle } from '../../molecules/ThemeToggle';
 
 const demoUsers = [
@@ -191,5 +191,4 @@ function getStyles({ theme }) {
   };
 }
 
-
-export default styled(LoginForm, getStyles);
+export default React.memo(styled(LoginForm, getStyles));

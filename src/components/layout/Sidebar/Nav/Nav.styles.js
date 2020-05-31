@@ -16,7 +16,7 @@ export function getStyles (
 
   const navFontSize = fonts.medium.fontSize;
   const navTextColor = semanticColors.menuItemText;
-  const navWidth = 280;
+  const navWidth = 220;
   const navCollapsedWidth = 48;
   const shortenedIconWidth = 32;
   const navFloatingWidth = 230;
@@ -37,6 +37,7 @@ export function getStyles (
   return {
     root: {
       width: isCollapsed ? navCollapsedWidth : navWidth,
+      overflow: 'hidden',
       height: '100vh',
       backgroundColor: navBackgroundColor,
       color: navTextColor,
@@ -193,6 +194,15 @@ export function getStyles (
       color: navTextColor,
       fontWeight: 'bold'
     },
+    navTogglerWrapper: {
+      borderBottom: `1px solid ${navItemWithChildBgColor}`,
+      // marginBottom: 14,
+      selectors: {
+        '@media only screen and (max-width: 800px)': {
+          display: "none"
+        }
+      },
+    },
     navToggler: {
       height: navItemHeight,
       cursor: 'pointer',
@@ -202,6 +212,9 @@ export function getStyles (
         }
       },
       textAlign: 'left'
+    },
+    navTogglerText: {
+      display: "inline-block",
     },
     focusedStyle: [
       getFocusStyle(
