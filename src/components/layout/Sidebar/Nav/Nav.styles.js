@@ -31,30 +31,52 @@ export function getStyles (
   const navItemSelectedColor = semanticColors.menuItemBackgroundPressed;
   const navItemIndentSize = 50;
   const navFloatingItemIndentSize = 20;
-  const BackDropSelector =
-    '@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))';
+  const BackDropSelector = '@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))';
+  const MouseEnabledDeviceSelector = '@media (hover: hover) and (pointer: fine)';
 
   return {
     root: {
+      marginRight: isCollapsed ? navCollapsedWidth : navWidth,
+      transition: 'margin .06s',
+      selectors: {
+        '@media only screen and (max-width: 800px)': {
+          marginRight: 0,
+          transition: 'none',
+        },
+      }
+    },
+    rootInner: {
+      position: 'fixed',
       width: isCollapsed ? navCollapsedWidth : navWidth,
       overflow: 'hidden',
+      transition: 'width .06s',
       height: '100vh',
       backgroundColor: navBackgroundColor,
       color: navTextColor,
       borderRightStyle: 'solid',
       borderRightWidth: '1px',
       borderRightColor: semanticColors.bodyFrameDivider,
+      zIndex: 1,
       selectors: {
+        '@media only screen and (max-width: 800px)': {
+          position: 'fixed',
+          transition: 'none',
+          width: isCollapsed ? 0 : navWidth,
+        },
         ul: {
           listStyleType: 'none',
           padding: 0,
           margin: 0,
           fontSize: navFontSize,
           selectors: {
-            'li:hover >div': {
-              display: 'block'
+            [MouseEnabledDeviceSelector]: {
+              selectors: {
+                'li:hover >div': {
+                  display: 'block'
+                }
+              }
             }
-          }
+          },
         },
         a: {
           color: `${navTextColor} !important`,

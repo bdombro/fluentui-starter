@@ -21,26 +21,28 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
 
   return (
     <div className={classNames.root}>
-      <FocusZone direction={FocusZoneDirection.vertical}>
-        <nav role="navigation">
-          {_renderExpandCollapseNavItem()}
-          {!!groups?.length && nav.collapsed ? (
-            <SlimNav
-              groups={groups}
-              selectedKey={selectedKey}
-              showMore={showMore}
-              onShowMoreLinkClicked={_onShowMoreLinkClicked}
-            />
-          ) : (
-            <Nav
-              groups={groups}
-              selectedKey={selectedKey}
-              showMore={showMore}
-              onShowMoreLinkClicked={_onShowMoreLinkClicked}
-            />
-          )}
-        </nav>
-      </FocusZone>
+      <div className={classNames.rootInner}>
+        <FocusZone direction={FocusZoneDirection.vertical}>
+          <nav role="navigation">
+            {_renderExpandCollapseNavItem()}
+            {!!groups?.length && nav.collapsed ? (
+              <SlimNav
+                groups={groups}
+                selectedKey={selectedKey}
+                showMore={showMore}
+                onShowMoreLinkClicked={_onShowMoreLinkClicked}
+              />
+            ) : (
+              <Nav
+                groups={groups}
+                selectedKey={selectedKey}
+                showMore={showMore}
+                onShowMoreLinkClicked={_onShowMoreLinkClicked}
+              />
+            )}
+          </nav>
+        </FocusZone>
+      </div>
     </div>
   );
 
