@@ -4,13 +4,13 @@ import { useTheme, ThemeList } from '../../../state/theme';
 
 export function ThemeToggle({ as = CommandBarButton }) {
   const ButtonComponent = as;
-  const { theme, changeTheme } = useTheme();
+  const theme = useTheme();
   const menuItems = Object.keys(ThemeList).map(key => ({
     key,
     text: key,
     canCheck: true,
-    checked: theme === key,
-    onClick: () => changeTheme(key)
+    checked: theme.name === key,
+    onClick: () => theme.patch({name: key})
   }));
 
   return (
@@ -18,7 +18,7 @@ export function ThemeToggle({ as = CommandBarButton }) {
       menuProps={{ shouldFocusOnMount: true, items: menuItems }}
       iconProps={{ iconName: 'Color' }}
     >
-      {theme}
+      {theme.name}
     </ButtonComponent>
   );
 }

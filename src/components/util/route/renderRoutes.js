@@ -1,13 +1,13 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import {flattenDeep, isArray, isNil} from 'lodash-es';
+import {flattenDeep, isNil} from 'lodash-es';
 import AuthorizedRoute from './AuthorizedRoute';
 import RouteIndex from './RouteIndex';
 import ComingSoon from '../../pages/ComingSoon';
 import NoMatch from '../../pages/NoMatch';
 
 export function mapConfigToRoutes(route) {
-  const isGroup = isArray(route.children);
+  const isGroup = Array.isArray(route.children);
   const PageComponent = isNil(route.component)
     ? isGroup
       ? RouteIndex
@@ -18,7 +18,7 @@ export function mapConfigToRoutes(route) {
     <AuthorizedRoute
       key={route.uniqueKey}
       path={route.path}
-      exact={route.exact || isArray(route.children)}
+      exact={route.exact || Array.isArray(route.children)}
       strict={route.strict}
       isPublic={route.isPublic}
     >

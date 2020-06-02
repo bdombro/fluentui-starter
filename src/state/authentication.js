@@ -1,35 +1,30 @@
 import React from 'react';
-import { useSessionStorage } from 'react-use';
+import {useSessionStorage} from 'react-use';
 
-const defaultValues = Object.freeze({
+const initialValues = Object.freeze({
   isAuthenticated: false,
   principal: null,
-  login: () => {},
-  logout: () => {}
 });
 
-const AUTH_STOREGE_KEY = 'authentication';
+export const AuthenticationContext = React.createContext(initialValues);
 
-export const AuthenticationContext = React.createContext(defaultValues);
+export function AuthenticationProvider({children}) {
+  const [authentication, setAuthentication] = useSessionStorage('authentication', initialValues);
 
-export function AuthenticationProvider({ children }) {
-  const [authentication, setAuthentication] = useSessionStorage(
-    AUTH_STOREGE_KEY,
-    defaultValues
-  );
-
-  const login = principal =>
-    setAuthentication({ isAuthenticated: true, principal });
-
-  const logout = () => setAuthentication(defaultValues);
-
-  const values = { ...authentication, login, logout };
+  const values = {...authentication, login, logout};
 
   return (
     <AuthenticationContext.Provider value={values}>
       {children}
     </AuthenticationContext.Provider>
   );
+
+  function login (principal) {
+    return setAuthentication({isAuthenticated: true, principal});
+  }
+  function logout () {
+    setAuthentication(initialValues);
+  }
 }
 
 export function useAuthentication() {

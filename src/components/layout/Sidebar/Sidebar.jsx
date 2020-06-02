@@ -1,10 +1,9 @@
 import React from 'react';
-import isArray from 'lodash/isArray';
 import {useHistory} from 'react-router-dom';
-import {SidebarInner} from './Nav';
 import routeConfig from '../../../routeConfig';
 import useRoutePath from '../../util/route/useRoutePath';
 import {useNav} from "../../../state/nav";
+import {Nav} from './Nav';
 
 export const Sidebar = React.memo(() => {
   const history = useHistory();
@@ -13,7 +12,7 @@ export const Sidebar = React.memo(() => {
 
   const homeLink = mapRouteToNavLink(routeConfig, false);
   const topPageLinks = routeConfig.children
-    .filter(route => isVisible(route) && !isArray(route.children))
+    .filter(route => isVisible(route) && !Array.isArray(route.children))
     .map(route => mapRouteToNavLink(route, false));
 
   const groupLinks = routeConfig.children
@@ -35,7 +34,7 @@ export const Sidebar = React.memo(() => {
   ];
 
   return (
-    <SidebarInner
+    <Nav
       groups={navLinkGroups}
       selectedKey={current?.uniqueKey} />
   );
@@ -54,7 +53,7 @@ export const Sidebar = React.memo(() => {
       onClick: e => {
         e.preventDefault();
         if (window.innerWidth < 800) { // this width should match the breakpoint in Nav.styles.js
-          nav.collapse();
+          nav.patch({collapsed: true});
         }
         history.push(route.path);
       },

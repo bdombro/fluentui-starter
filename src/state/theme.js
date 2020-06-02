@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fabric, Customizer } from '@fluentui/react';
-import { useLocalStorage } from 'react-use';
+import { useSessionStorage } from 'react-use';
 
 import {
   DefaultCustomizations,
@@ -14,14 +14,14 @@ export const ThemeList = {
 
 export const ThemeContext = React.createContext({
   theme: 'light',
-  changeTheme: name => {}
+  setThemeName: name => {}
 });
 
 const ThemeWrapper = ({ children }) => {
   return (
     <ThemeContext.Consumer>
-      {({ theme }) => (
-        <Customizer {...ThemeList[theme]}>
+      {(theme) => (
+        <Customizer {...theme.theme}>
           <Fabric>{children}</Fabric>
         </Customizer>
       )}
@@ -30,14 +30,21 @@ const ThemeWrapper = ({ children }) => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useLocalStorage('theme', 'dark');
-  const changeTheme = name => ThemeList[name] && setTheme(name);
-  const value = { theme, changeTheme };
+  const [themeName, setThemeName] = useSessionStorage('theme', 'dark');
+
   return (
-    <ThemeContext.Provider value={value}>
+    <ThemeContext.Provider value={{name: themeName, theme: ThemeList[themeName], patch, toggle }}>
       <ThemeWrapper>{children}</ThemeWrapper>
     </ThemeContext.Provider>
   );
+
+  function patch(next) {
+    if (next.theme) throw new Error('Cannot set theme directly.');
+    setThemeName(next.name);
+  }
+  function toggle() {
+    setThemeName(themeName === 'dark' ? 'light' : 'dark');
+  }
 };
 
 export const useTheme = () => React.useContext(ThemeContext);

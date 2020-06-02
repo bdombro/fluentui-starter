@@ -2,9 +2,11 @@ import React from 'react';
 import { CommandBarButton } from '@fluentui/react';
 import { useAuthentication } from '../../../state/authentication';
 import { useHistory } from 'react-router-dom';
+import {useTheme} from "../../../state/theme";
 
 export function UserMenu() {
-  const { principal, logout } = useAuthentication();
+  const auth = useAuthentication();
+  const theme = useTheme();
 
   const history = useHistory();
   const menuProps = {
@@ -20,7 +22,13 @@ export function UserMenu() {
         key: 'logout',
         text: 'Logout',
         iconProps: { iconName: 'SignOut' },
-        onClick: logout
+        onClick: auth.logout
+      },
+      {
+        key: 'themeToggle',
+        text: 'Toggle Theme',
+        iconProps: { iconName: 'Color' },
+        onClick: theme.toggle
       }
     ]
   };
@@ -29,7 +37,7 @@ export function UserMenu() {
     <CommandBarButton
       menuProps={menuProps}
       iconProps={{ iconName: 'UserOptional' }}>
-      {principal.username}
+      {auth.principal.username}
     </CommandBarButton>
   );
 }

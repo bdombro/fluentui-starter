@@ -1,5 +1,3 @@
-import {isArray} from 'lodash-es';
-
 /**
  * Brian: Recursively walks a route tree and adds context to each route of parents and children.
  * I'm unsure at this point if it's worth the trouble, but maybe it's cool if you need to worry
@@ -21,8 +19,8 @@ export function hierarchize(
   parentKey = 'parent'
 ) {
   node[parentKey] = parent;
-  nodeProcessor && nodeProcessor(node, parent);
-  if (isArray(node[childrenKey])) {
+  if(nodeProcessor) nodeProcessor(node, parent);
+  if (Array.isArray(node[childrenKey])) {
     node[childrenKey].forEach(child =>
       hierarchize(child, node, nodeProcessor, childrenKey, parentKey)
     );

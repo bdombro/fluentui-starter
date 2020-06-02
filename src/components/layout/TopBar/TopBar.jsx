@@ -3,7 +3,6 @@ import { Stack, styled, classNamesFunction } from '@fluentui/react';
 import { Icon } from "@fluentui/react/lib/Icon";
 import {Link} from "react-router-dom";
 import {useNav} from "../../../state/nav";
-import { ThemeToggle } from '../../molecules/ThemeToggle';
 import { UserMenu } from './UserMenu';
 
 const getClassNames = classNamesFunction();
@@ -32,7 +31,6 @@ function TopBarComponent({ styles, theme }) {
         </Link>
       </Stack.Item>
       <UserMenu />
-      <ThemeToggle />
     </Stack>
   );
 }

@@ -49,7 +49,6 @@ export function getStyles (
       position: 'fixed',
       width: isCollapsed ? navCollapsedWidth : navWidth,
       overflow: 'hidden',
-      transition: 'width .06s',
       height: '100vh',
       backgroundColor: navBackgroundColor,
       color: navTextColor,
