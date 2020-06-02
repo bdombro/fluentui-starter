@@ -4,9 +4,11 @@ import {useHistory} from 'react-router-dom';
 import {SidebarInner} from './Nav';
 import routeConfig from '../../../routeConfig';
 import useRoutePath from '../../util/route/useRoutePath';
+import {useNav} from "../../../state/nav";
 
 export const Sidebar = React.memo(() => {
   const history = useHistory();
+  const nav = useNav();
   const {current, paths} = useRoutePath();
 
   const homeLink = mapRouteToNavLink(routeConfig, false);
@@ -51,6 +53,9 @@ export const Sidebar = React.memo(() => {
       url: route.path,
       onClick: e => {
         e.preventDefault();
+        if (window.innerWidth < 800) { // this width should match the breakpoint in Nav.styles.js
+          nav.collapse();
+        }
         history.push(route.path);
       },
       isExpanded:

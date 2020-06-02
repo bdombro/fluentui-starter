@@ -53,9 +53,7 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
       alternateText: 'Expanded',
       icon: 'GlobalNavButton',
       title: 'Collapse',
-      button: () => <button>Boom</button>,
     };
-    // const link = toggleNavGroups?.[0]?.links?.[0];
 
     if (!link) {
       // There is no toggle group with links defined

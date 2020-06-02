@@ -1,7 +1,7 @@
 import React from "react";
+import { styled, classNamesFunction } from "@fluentui/react/lib/Utilities";
 import { getStyles } from "./Nav.styles";
 import { NavBase } from "./NavBase";
-import { styled, classNamesFunction } from "@fluentui/react/lib/Utilities";
 import { NavLink } from "./NavLink";
 
 const getClassNames = classNamesFunction();

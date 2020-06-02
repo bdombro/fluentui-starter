@@ -1,32 +1,33 @@
 import React from 'react';
-import { useSessionStorage } from 'react-use';
+import {useSessionStorage} from 'react-use';
 
-const defaultValues = Object.freeze({
-  collapsed: localStorage.getItem('NavToggler.isNavCollapsed') === 'true' || window.innerWidth < 720
+const initialValue = Object.freeze({
+  collapsed: window.innerWidth < 720
 });
 
-const NAV_STOREGE_KEY = 'nav';
+export const NavContext = React.createContext(initialValue);
 
-export const NavContext = React.createContext(defaultValues);
-
-export function NavProvider({ children }) {
-  const [nav, setNav] = useSessionStorage(
-    NAV_STOREGE_KEY,
-    defaultValues
-  );
-
-  function toggle () {
-    localStorage.setItem('NavToggler.isNavCollapsed', nav.collapsed ? 'false' : 'true');
-    setNav({...nav, collapsed: !nav.collapsed});
-  }
-
-  const values = { ...nav, toggle};
+export function NavProvider({children}) {
+  const [nav, setNav] = useSessionStorage('nav', initialValue);
 
   return (
-    <NavContext.Provider value={values}>
+    <NavContext.Provider value={{...nav, collapse, expand, toggle}}>
       {children}
     </NavContext.Provider>
   );
+
+  function toggle() {
+    setNav({...nav, collapsed: !nav.collapsed});
+  }
+
+  function collapse() {
+    setNav({...nav, collapsed: true});
+  }
+
+  function expand() {
+    setNav({...nav, collapsed: false});
+  }
+
 }
 
 export function useNav() {
