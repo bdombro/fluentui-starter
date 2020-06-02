@@ -44,25 +44,25 @@ const routeConfig = hierarchize(
         isHidden: true
       },
       {
-        key: 'order',
-        name: 'Order',
+        key: 'orders',
+        name: 'Orders',
         icon: 'visualizeApp',
         description: 'This is a description of the order page.',
         children: [
           {
-            key: 'purchase-order',
-            name: 'Purchase Order',
+            key: 'purchase-orders',
+            name: 'Purchase Orders',
             description: 'This is a description of the po page.',
           },
           {
-            key: 'sales-order',
-            name: 'Sales Order',
+            key: 'sales-orders',
+            name: 'Sales Orders',
             description: 'This is a description of the Sales Order page.',
           }
         ]
       },
       {
-        key: 'mangement',
+        key: 'management',
         name: 'System Management',
         icon: 'managementApp',
         description: 'This is a description of the system mgmt page.',
@@ -74,8 +74,8 @@ const routeConfig = hierarchize(
             description: 'This is a description of the org page.'
           },
           {
-            key: 'user',
-            name: 'User',
+            key: 'users',
+            name: 'Users',
             icon: 'People',
             description: 'This is a description of the user page.'
           },

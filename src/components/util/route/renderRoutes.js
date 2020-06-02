@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import {flattenDeep, isArray, isNil} from 'lodash-es';
 import AuthorizedRoute from './AuthorizedRoute';
 import RouteIndex from './RouteIndex';
@@ -22,7 +22,7 @@ export function mapConfigToRoutes(route) {
       strict={route.strict}
       isPublic={route.isPublic}
     >
-      <PageComponent route={route} />
+      <PageComponent route={route}/>
     </AuthorizedRoute>
   );
 
@@ -39,7 +39,7 @@ export function renderRoutes(routeConfig) {
     <Switch>
       {flatRouteComponents}
       <Route path="*">
-        <NoMatch />
+        <NoMatch/>
       </Route>
     </Switch>
   );

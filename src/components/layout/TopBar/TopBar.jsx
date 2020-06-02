@@ -65,6 +65,7 @@ function getStyles({ theme }) {
     },
     siteTitle: {
       fontSize: 20,
+      color: theme.isInverted ? 'white' : 'black',
     }
   };
 }

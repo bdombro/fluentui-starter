@@ -1,6 +1,5 @@
 import React from 'react';
 import {Stack, styled, classNamesFunction} from '@fluentui/react';
-import {IonPage, IonRouterOutlet} from "@ionic/react";
 import {Sidebar} from '../Sidebar';
 import {TopBar} from '../TopBar';
 
@@ -36,12 +35,7 @@ function MasterLayoutComponent({children, theme, styles}) {
             <Sidebar/>
           </Stack.Item>
           <Stack.Item grow={true} className={classNames.contentWrapper}>
-              {/* TODO: Figure out why page transitions happen, vs. conference app */}
-              <IonRouterOutlet style={{position: 'relative'}}>
-                <IonPage>
-                  {children}
-                </IonPage>
-              </IonRouterOutlet>
+              {children}
           </Stack.Item>
         </Stack>
       </Stack.Item>

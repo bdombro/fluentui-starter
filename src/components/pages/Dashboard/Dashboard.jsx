@@ -71,7 +71,7 @@ function Dashboard() {
       <div>64</div>
       <div>65</div>
       <div>66</div>
-      <Link to='/mangement/user'>Go</Link>
+      <Link to='/login'>Go</Link>
     </div>
   );
 }
