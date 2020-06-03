@@ -1,49 +1,45 @@
 import React from 'react';
 import { Fabric, Customizer } from '@fluentui/react';
 import { useSessionStorage } from 'react-use';
+import {DefaultCustomizations, DarkCustomizations} from '@uifabric/theme-samples';
 
-import {
-  DefaultCustomizations,
-  DarkCustomizations
-} from '@uifabric/theme-samples';
+export const ThemeNames = {
+  DARK: 'dark',
+  LIGHT: 'light'
+}
 
 export const ThemeList = {
-  light: DefaultCustomizations,
-  dark: DarkCustomizations
+  [ThemeNames.LIGHT]: DefaultCustomizations,
+  [ThemeNames.DARK]: DarkCustomizations
 };
 
-export const ThemeContext = React.createContext({
-  theme: 'light',
-  setThemeName: name => {}
-});
+const initialValue = Object.freeze({
+  name: ThemeNames.DARK,
+})
 
-const ThemeWrapper = ({ children }) => {
-  return (
-    <ThemeContext.Consumer>
-      {(theme) => (
-        <Customizer {...theme.theme}>
-          <Fabric>{children}</Fabric>
-        </Customizer>
-      )}
-    </ThemeContext.Consumer>
-  );
-};
+export const ThemeContext = React.createContext(initialValue);
 
 export const ThemeProvider = ({ children }) => {
-  const [themeName, setThemeName] = useSessionStorage('theme', 'dark');
+  const [state, setState] = useSessionStorage('theme', initialValue);
 
   return (
-    <ThemeContext.Provider value={{name: themeName, theme: ThemeList[themeName], patch, toggle }}>
-      <ThemeWrapper>{children}</ThemeWrapper>
+    <ThemeContext.Provider value={{...state, theme: ThemeList[state.name], patch, toggle }}>
+      <ThemeContext.Consumer>
+        {(theme) => (
+          <Customizer {...theme.theme}>
+            <Fabric>{children}</Fabric>
+          </Customizer>
+        )}
+      </ThemeContext.Consumer>
     </ThemeContext.Provider>
   );
 
   function patch(next) {
     if (next.theme) throw new Error('Cannot set theme directly.');
-    setThemeName(next.name);
+    setState({...state, ...next});
   }
   function toggle() {
-    setThemeName(themeName === 'dark' ? 'light' : 'dark');
+    setState({...state, name: state.name === ThemeNames.DARK ? ThemeNames.LIGHT : ThemeNames.DARK});
   }
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import {merge} from 'lodash-es';
 import {useSessionStorage} from 'react-use';
 
 const initialValue = Object.freeze({
@@ -18,7 +17,7 @@ export function NavProvider({children}) {
   );
 
   function patch(next) {
-    setNav(merge(nav, next));
+    setNav({...nav, ...next});
   }
   function toggle() {
     setNav({...nav, collapsed: !nav.collapsed});

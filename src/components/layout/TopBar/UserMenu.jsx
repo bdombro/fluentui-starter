@@ -19,17 +19,17 @@ export function UserMenu() {
         onClick: () => history.push('/profile')
       },
       {
+        key: 'themeToggle',
+        text: 'Toggle Theme',
+        iconProps: { iconName: 'Color' },
+        onClick: theme.toggle
+      },
+      {
         key: 'logout',
         text: 'Logout',
         iconProps: { iconName: 'SignOut' },
         onClick: auth.logout
       },
-      {
-        key: 'themeToggle',
-        text: 'Toggle Theme',
-        iconProps: { iconName: 'Color' },
-        onClick: theme.toggle
-      }
     ]
   };
 

@@ -48,6 +48,7 @@ export function getStyles (
     rootInner: {
       position: 'fixed',
       width: isCollapsed ? navCollapsedWidth : navWidth,
+      transition: 'width .06s',
       overflow: 'hidden',
       height: '100vh',
       backgroundColor: navBackgroundColor,
