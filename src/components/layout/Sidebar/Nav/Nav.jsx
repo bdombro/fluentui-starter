@@ -68,7 +68,7 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
         <NavLink
           id={link.key}
           href={link.url}
-          onClick={nav.toggle}
+          onClick={e => !e.target.className.includes('Button') && nav.toggle()}
           ariaExpanded={!nav.collapsed}
           dataValue={link.key}
           ariaLabel={ariaLabel}
@@ -82,7 +82,7 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
           // content={g[0].button}
           textClassName={classNames.navTogglerText}
           content={(
-            <PrimaryButton onClick={() => alert('Clicked Sidebar Button')}>
+            <PrimaryButton title='New Order' onClick={() => alert('Clicked Sidebar Button')}>
               New order
             </PrimaryButton>
           )}

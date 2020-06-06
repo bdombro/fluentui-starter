@@ -49,7 +49,6 @@ export function getStyles (
       position: 'fixed',
       width: isCollapsed ? navCollapsedWidth : navWidth,
       transition: 'width .06s',
-      overflow: 'hidden',
       height: '100vh',
       backgroundColor: navBackgroundColor,
       color: navTextColor,
@@ -59,9 +58,12 @@ export function getStyles (
       zIndex: 1,
       selectors: {
         '@media only screen and (max-width: 800px)': {
-          position: 'fixed',
           transition: 'none',
+          overflow: 'hidden',
           width: isCollapsed ? 0 : navWidth,
+        },
+        button: {
+          display: isCollapsed ? 'none' : 'inline-block',
         },
         ul: {
           listStyleType: 'none',
