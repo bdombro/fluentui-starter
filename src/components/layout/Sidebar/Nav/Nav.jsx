@@ -13,13 +13,12 @@ const getClassNames = classNamesFunction();
 
 function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
   const [navCollapsed, setNavCollapsed] = useRecoilState(navCollapsedState);
-  // TODO: Consider using useLocalStorage
-  const [showMore, setShowMore] = React.useState(localStorage.getItem('SidebarInner.showMore') === 'true');
 
   const classNames = getClassNames(styles, {
     isCollapsed: navCollapsed,
     theme: theme
   });
+
 
   return (
     <div className={classNames.root}>
@@ -31,15 +30,11 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
               <SlimNav
                 groups={groups}
                 selectedKey={selectedKey}
-                showMore={showMore}
-                onShowMoreLinkClicked={_onShowMoreLinkClicked}
               />
             ) : (
               <FullNav
                 groups={groups}
                 selectedKey={selectedKey}
-                showMore={showMore}
-                onShowMoreLinkClicked={_onShowMoreLinkClicked}
               />
             )}
           </nav>
@@ -91,13 +86,6 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
         />
       </div>
     );
-  }
-
-  function _onShowMoreLinkClicked(ev) {
-    ev.preventDefault();
-    ev.stopPropagation();
-    localStorage.setItem('SidebarInner.showMore', showMore ? 'false' : 'true');
-    setShowMore(!showMore);
   }
 }
 

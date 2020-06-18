@@ -38,24 +38,17 @@ export class NavBase extends React.Component {
     );
   }
 
-  getLinkText(link, showMore) {
+  getLinkText(link) {
     if (!link) {
       return undefined;
-    }
-    if (link.isShowMoreLink && !showMore && link.alternateText) {
-      // if the link is show more/less link, based on the showMore state; return "Show more" localized text
-      return link.alternateText;
     }
     return link.name;
   }
 
   // find if atleast one child link is visible using isHidden property
-  // showMore flag will overwrite isHidden property
-  hasAtleastOneVisibleLink(links, showMore) {
-    return links?.length && (
-      links.some(link => {
-        return !link.isHidden;
-      }) || !!showMore
-    );
+  hasAtleastOneVisibleLink(links) {
+    return links?.some(link => {
+      return !link.isHidden;
+    });
   }
 }

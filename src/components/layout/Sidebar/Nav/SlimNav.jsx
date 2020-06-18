@@ -108,7 +108,7 @@ class SlimNavComponent extends NavBase {
   }
 
   _renderCompositeLink(link, linkIndex, nestingLevel) {
-    const { styles, showMore, onShowMoreLinkClicked, theme } = this.props;
+    const { styles, theme } = this.props;
 
     if (!link) {
       return null;
@@ -128,11 +128,8 @@ class SlimNavComponent extends NavBase {
       nestingLevel,
       theme: theme
     });
-    const linkText = this.getLinkText(link, showMore);
-    const onClickHandler =
-      link.isShowMoreLink && onShowMoreLinkClicked
-        ? onShowMoreLinkClicked
-        : this._onLinkClicked.bind(this, link);
+    const linkText = this.getLinkText(link);
+    const onClickHandler = this._onLinkClicked.bind(this, link);
 
     return (
       <NavLink
@@ -155,13 +152,12 @@ class SlimNavComponent extends NavBase {
   }
 
   _renderFloatingLink(link, linkIndex, nestingLevel) {
-    const { showMore } = this.props;
 
     if (!link) {
       return null;
     }
 
-    const linkText = this.getLinkText(link, showMore);
+    const linkText = this.getLinkText(link);
 
     return (
       <li key={link.key || linkIndex} title={linkText}>
@@ -211,7 +207,7 @@ class SlimNavComponent extends NavBase {
   }
 
   _renderLink(link, linkIndex, _nestingLevel) {
-    const { styles, showMore, onShowMoreLinkClicked, theme } = this.props;
+    const { styles, theme } = this.props;
 
     if (!link) {
       return null;
@@ -224,11 +220,8 @@ class SlimNavComponent extends NavBase {
       hasChildren,
       theme: theme
     });
-    const linkText = this.getLinkText(link, showMore);
-    const onClickHandler =
-      link.isShowMoreLink && onShowMoreLinkClicked
-        ? onShowMoreLinkClicked
-        : this._onLinkClicked.bind(this, link);
+    const linkText = this.getLinkText(link);
+    const onClickHandler = this._onLinkClicked.bind(this, link);
 
     return (
       <li
@@ -259,7 +252,6 @@ class SlimNavComponent extends NavBase {
   }
 
   _renderLinks(links, nestingLevel) {
-    const { showMore } = this.props;
 
     if (!links?.length) {
       return null;
@@ -268,18 +260,9 @@ class SlimNavComponent extends NavBase {
     return (
       <ul>
         {links.map((link, linkIndex) => {
-          if (link.isHidden && !showMore) {
+          if (link.isHidden) {
             // atleast one link is hidden
             this._hasAtleastOneHiddenLink = true;
-
-            // "Show more" overrides isHidden property
-            return null;
-          } else if (
-            link.isShowMoreLink &&
-            !this._hasAtleastOneHiddenLink &&
-            !showMore
-          ) {
-            // there is no hidden link, hide "Show more" link
             return null;
           } else {
             return this._renderLink(link, linkIndex, nestingLevel);
@@ -302,10 +285,7 @@ class SlimNavComponent extends NavBase {
 
     // first group header is hidden by default, display group header for other groups only if there are visible links
     if (groupIndex > 0) {
-      isGroupHeaderVisible = this.hasAtleastOneVisibleLink(
-        group.links,
-        this.props.showMore,
-      );
+      isGroupHeaderVisible = this.hasAtleastOneVisibleLink(group.links);
     }
 
     return (

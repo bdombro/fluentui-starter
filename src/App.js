@@ -10,7 +10,7 @@ import {ThemeHoc} from "./state";
 
 function App() {
   return (
-    // TODO: Implement state persistence when recoil is stable
+    // FIXME: Implement state persistence when recoil is stable
     <RecoilRoot>
       <ThemeHoc>
         <BrowserRouter>

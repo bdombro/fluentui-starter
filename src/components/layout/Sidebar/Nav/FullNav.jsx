@@ -58,7 +58,7 @@ class NavComponent extends NavBase {
   }
 
   _renderCompositeLink(link, linkIndex, nestingLevel) {
-    const { onShowMoreLinkClicked, styles, showMore, theme } = this.props;
+    const { styles, theme } = this.props;
 
     if (!link) {
       return null;
@@ -84,11 +84,8 @@ class NavComponent extends NavBase {
       (isLinkSelected && !hasChildren) ||
       (isChildLinkSelected && !link.isExpanded);
     const classNames = getClassNames(styles, {isSelected, nestingLevel, isChildLinkSelected, theme});
-    const linkText = this.getLinkText(link, showMore);
-    const onClickHandler =
-      link.isShowMoreLink && onShowMoreLinkClicked
-        ? onShowMoreLinkClicked
-        : this._onLinkClicked.bind(this, link);
+    const linkText = this.getLinkText(link);
+    const onClickHandler = this._onLinkClicked.bind(this, link);
 
     return (
       <NavLink
@@ -117,7 +114,7 @@ class NavComponent extends NavBase {
       return null;
     }
 
-    const linkText = this.getLinkText(link, this.props.showMore);
+    const linkText = this.getLinkText(link);
 
     return (
       <li key={link.key || linkIndex} title={linkText}>
@@ -138,22 +135,12 @@ class NavComponent extends NavBase {
     if (!links?.length) {
       return null;
     }
-    const { showMore } = this.props;
     return (
       <ul>
         {links.map((link, linkIndex) => {
-          if (link.isHidden && !showMore) {
+          if (link.isHidden) {
             // atleast one link is hidden
             this._hasAtleastOneHiddenLink = true;
-
-            // "Show more" overrides isHidden property
-            return null;
-          } else if (
-            link.isShowMoreLink &&
-            !this._hasAtleastOneHiddenLink &&
-            !showMore
-          ) {
-            // there is no hidden link, hide "Show more" link
             return null;
           } else {
             return this._renderLink(link, linkIndex, nestingLevel);
@@ -177,10 +164,7 @@ class NavComponent extends NavBase {
     // first group header is hidden by default, display group header for other groups only if there are visible links
     let isGroupHeaderVisible = false;
     if (groupIndex > 0) {
-      isGroupHeaderVisible = this.hasAtleastOneVisibleLink(
-        group.links,
-        this.props.showMore
-      );
+      isGroupHeaderVisible = this.hasAtleastOneVisibleLink(group.links);
     }
 
     return (
