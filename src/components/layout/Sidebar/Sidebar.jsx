@@ -1,14 +1,15 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
+import {useSetRecoilState} from "recoil";
 import routeConfig from '../../../routeConfig';
+import {navCollapsedState} from "../../../state";
 import useRoutePath from '../../util/route/useRoutePath';
-import {useNav} from "../../../state/nav";
 import {Nav} from './Nav';
 
 export const Sidebar = React.memo(() => {
   const history = useHistory();
-  const nav = useNav();
   const {current, paths} = useRoutePath();
+  const setNavCollapsed = useSetRecoilState(navCollapsedState);
 
   const homeLink = mapRouteToNavLink(routeConfig, false);
   const topPageLinks = routeConfig.children
@@ -53,7 +54,7 @@ export const Sidebar = React.memo(() => {
       onClick: e => {
         e.preventDefault();
         if (window.innerWidth < 800) { // this width should match the breakpoint in Nav.styles.js
-          nav.patch({collapsed: true});
+          setNavCollapsed(true);
         }
         history.push(route.path);
       },

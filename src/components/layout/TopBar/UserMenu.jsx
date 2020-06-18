@@ -1,12 +1,13 @@
 import React from 'react';
 import { CommandBarButton } from '@fluentui/react';
-import { useAuthentication } from '../../../state/authentication';
 import { useHistory } from 'react-router-dom';
-import {useTheme} from "../../../state/theme";
+import {useRecoilState, useRecoilValue, useResetRecoilState} from "recoil";
+import {authState, themeState, ThemeNames} from "../../../state";
 
 export function UserMenu() {
-  const auth = useAuthentication();
-  const theme = useTheme();
+  const [theme, setTheme] = useRecoilState(themeState);
+  const auth = useRecoilValue(authState);
+  const logout = useResetRecoilState(authState);
 
   const history = useHistory();
   const menuProps = {
@@ -22,13 +23,13 @@ export function UserMenu() {
         key: 'themeToggle',
         text: 'Toggle Theme',
         iconProps: { iconName: 'Color' },
-        onClick: theme.toggle
+        onClick: () => setTheme(theme === ThemeNames.LIGHT ? ThemeNames.DARK : ThemeNames.LIGHT),
       },
       {
         key: 'logout',
         text: 'Logout',
         iconProps: { iconName: 'SignOut' },
-        onClick: auth.logout
+        onClick: logout
       },
     ]
   };
@@ -37,7 +38,7 @@ export function UserMenu() {
     <CommandBarButton
       menuProps={menuProps}
       iconProps={{ iconName: 'UserOptional' }}>
-      {auth.principal.username}
+      {auth.username}
     </CommandBarButton>
   );
 }

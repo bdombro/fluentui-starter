@@ -2,20 +2,22 @@ import React from 'react';
 import {styled, classNamesFunction} from '@fluentui/react/lib/Utilities';
 import {FocusZone, FocusZoneDirection} from '@fluentui/react/lib/FocusZone';
 import {PrimaryButton} from '@fluentui/react';
-import {useNav} from "../../../../state/nav";
+import {useRecoilState} from "recoil";
+import {navCollapsedState} from "../../../../state";
+import {getStyles} from './Nav.styles';
 import {FullNav} from './FullNav';
 import {SlimNav} from './SlimNav';
-import {getStyles} from './Nav.styles';
 import {NavLink} from './NavLink';
 
 const getClassNames = classNamesFunction();
 
 function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
-  const nav = useNav();
+  const [navCollapsed, setNavCollapsed] = useRecoilState(navCollapsedState);
+  // TODO: Consider using useLocalStorage
   const [showMore, setShowMore] = React.useState(localStorage.getItem('SidebarInner.showMore') === 'true');
 
   const classNames = getClassNames(styles, {
-    isCollapsed: nav.collapsed,
+    isCollapsed: navCollapsed,
     theme: theme
   });
 
@@ -25,7 +27,7 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
         <FocusZone direction={FocusZoneDirection.vertical}>
           <nav role="navigation">
             {_renderExpandCollapseNavItem()}
-            {!!groups?.length && nav.collapsed ? (
+            {!!groups?.length && navCollapsed ? (
               <SlimNav
                 groups={groups}
                 selectedKey={selectedKey}
@@ -61,15 +63,15 @@ function SidebarInnerComponent({styles, groups, selectedKey, theme}) {
     }
 
     const classNames = getClassNames(styles, {theme: theme});
-    const ariaLabel = nav.collapsed ? link.name : link.alternateText;
+    const ariaLabel = navCollapsed ? link.name : link.alternateText;
 
     return (
       <div className={classNames.navTogglerWrapper}>
         <NavLink
           id={link.key}
           href={link.url}
-          onClick={e => !e.target.className.includes('Button') && nav.toggle()}
-          ariaExpanded={!nav.collapsed}
+          onClick={e => !e.target.className.includes('Button') && setNavCollapsed(!navCollapsed)}
+          ariaExpanded={!navCollapsed}
           dataValue={link.key}
           ariaLabel={ariaLabel}
           rootClassName={classNames.navToggler}

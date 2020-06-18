@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useAuthentication } from '../../../state/authentication';
+import {useRecoilValue} from "recoil";
+import {authState} from "../../../state";
 
 export default function AuthorizedRoute({
   id,
@@ -11,8 +12,7 @@ export default function AuthorizedRoute({
   children,
   ...rest
 }) {
-  const { isAuthenticated } = useAuthentication();
-  const authorized = isPublic || isAuthenticated;
+  const auth = useRecoilValue(authState);
   return (
     <Route
       {...rest}
@@ -21,7 +21,7 @@ export default function AuthorizedRoute({
       exact={exact}
       strict={strict}
       render={({ location }) =>
-        authorized ? (
+        isPublic || !!auth ? (
           children
         ) : (
           <Redirect

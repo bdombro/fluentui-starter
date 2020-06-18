@@ -43,7 +43,7 @@ export function getStyles (
           marginRight: 0,
           transition: 'none',
         },
-      }
+      },
     },
     rootInner: {
       position: 'fixed',
@@ -102,8 +102,8 @@ export function getStyles (
         },
         ':active': {
           backgroundColor: navItemSelectedColor
-        }
-      }
+        },
+      },
     },
     navItemBarMarker: {
       marginLeft:
@@ -151,8 +151,8 @@ export function getStyles (
           backgroundColor: hasChildren
             ? navItemWithChildBgColor
             : navItemHoverColor
-        }
-      }
+        },
+      },
     },
     navFloatingRoot: [
       {
@@ -177,8 +177,8 @@ export function getStyles (
           a: {
             width: '100%',
             backgroundColor: 'inherit'
-          }
-        }
+          },
+        },
       },
       AnimationClassNames.slideRightIn20
     ],
@@ -196,8 +196,8 @@ export function getStyles (
         },
         ':active': {
           backgroundColor: navItemSelectedColor
-        }
-      }
+        },
+      },
     },
     navGroupSeparatorRoot: {
       width: '100%',
@@ -261,7 +261,7 @@ export function getStyles (
           !!nestingLevel && nestingLevel > 0
             ? navChildItemHeight
             : navItemHeight
-      }
-    ]
+      },
+    ],
   };
-};
+}

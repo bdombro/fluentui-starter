@@ -12,8 +12,9 @@ import {
 } from '@fluentui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useAuthentication } from '../../../state/authentication';
+import {useRecoilState, useResetRecoilState} from "recoil";
 import { ThemeToggle } from '../../molecules/ThemeToggle';
+import {authState} from "../../../state";
 
 const demoUsers = [
   {
@@ -32,7 +33,8 @@ const demoUsers = [
 const getClassNames = classNamesFunction();
 
 function LoginForm({ theme, styles }) {
-  const { isAuthenticated, principal, login, logout } = useAuthentication();
+  const [auth, setAuth] = useRecoilState(authState);
+  const logout = useResetRecoilState(authState);
   const { handleSubmit, control, errors } = useForm();
   const [error, setError] = React.useState();
   const history = useHistory();
@@ -43,10 +45,10 @@ function LoginForm({ theme, styles }) {
 
   return (
     <Stack className={classNames.root}>
-      {isAuthenticated && (
+      {!!auth && (
         <Stack tokens={{childrenGap: '1em'}}>
           <h3 className={classNames.title}>
-            {principal.username}, you are already signed in.
+            {auth.username}, you are already signed in.
           </h3>
           <Stack
             horizontal
@@ -65,7 +67,7 @@ function LoginForm({ theme, styles }) {
         </Stack>
       )}
 
-      {!isAuthenticated && (
+      {!auth && (
         <form onSubmit={handleSubmit(onSubmit)}>
            <Stack
               horizontal
@@ -148,7 +150,7 @@ function LoginForm({ theme, styles }) {
     setError(null);
     remoteAuthService(values)
       .then(identity => {
-        login(identity);
+        setAuth(identity);
         history.replace(from);
       })
       .catch(setError);

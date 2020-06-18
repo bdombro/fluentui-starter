@@ -1,18 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {initializeIcons} from '@uifabric/icons';
+import ReactDOM from 'react-dom';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Providers from "./state";
 
 initializeIcons();
 
 ReactDOM.render(
-  <Providers>
-    <App/>
-  </Providers>,
+  <App/>,
   document.getElementById('root')
 );
 

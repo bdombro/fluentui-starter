@@ -1,16 +1,17 @@
 import React from 'react';
 import { CommandBarButton } from '@fluentui/react';
-import { useTheme, ThemeList } from '../../../state/theme';
+import {useRecoilState} from "recoil";
+import {ThemeList, themeState} from '../../../state';
 
 export function ThemeToggle({ as = CommandBarButton }) {
   const ButtonComponent = as;
-  const theme = useTheme();
+  const [theme, setTheme] = useRecoilState(themeState);
   const menuItems = Object.keys(ThemeList).map(key => ({
     key,
     text: key,
     canCheck: true,
-    checked: theme.name === key,
-    onClick: () => theme.patch({name: key})
+    checked: theme === key,
+    onClick: () => setTheme(key)
   }));
 
   return (
@@ -18,7 +19,7 @@ export function ThemeToggle({ as = CommandBarButton }) {
       menuProps={{ shouldFocusOnMount: true, items: menuItems }}
       iconProps={{ iconName: 'Color' }}
     >
-      {theme.name}
+      {theme}
     </ButtonComponent>
   );
 }

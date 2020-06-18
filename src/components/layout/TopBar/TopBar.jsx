@@ -2,13 +2,14 @@ import React from 'react';
 import { Stack, styled, classNamesFunction } from '@fluentui/react';
 import { Icon } from "@fluentui/react/lib/Icon";
 import {Link} from "react-router-dom";
-import {useNav} from "../../../state/nav";
+import {useRecoilState} from "recoil";
+import {navCollapsedState} from "../../../state";
 import { UserMenu } from './UserMenu';
 
 const getClassNames = classNamesFunction();
 
 function TopBarComponent({ styles, theme }) {
-  const nav = useNav();
+  const [navCollapsed, setNavCollapsed] = useRecoilState(navCollapsedState);
   const classNames = getClassNames(styles, { theme });
   return (
     <Stack
@@ -22,7 +23,7 @@ function TopBarComponent({ styles, theme }) {
           iconName='WaffleOffice365' />
         <Icon
           className={classNames.leftIconMobile}
-          onClick={nav.toggle}
+          onClick={() => setNavCollapsed(!navCollapsed)}
           iconName='GlobalNavButton' />
         <Link to='/'>
           <span className={classNames.siteTitle}>

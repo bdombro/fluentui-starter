@@ -1,11 +1,11 @@
 import React from 'react';
-import { useAuthentication } from '../../state/authentication';
+import {useRecoilValue} from "recoil";
+import {authState} from "../../state";
 import {MasterLayout} from './MasterLayout';
 import { BlankLayout } from './BlankLayout';
 
 export function AutoSwitchLayout({ children }) {
-  const { isAuthenticated } = useAuthentication();
-  const Layout = isAuthenticated ? MasterLayout : BlankLayout;
-
+  const auth = useRecoilValue(authState);
+  const Layout = auth ? MasterLayout : BlankLayout;
   return <Layout>{children}</Layout>;
 }
