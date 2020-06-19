@@ -1,7 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import {useScrollRestore} from "../useScrollRestore";
 
 function NoMatch() {
+  useScrollRestore();
   let location = useLocation();
 
   return (

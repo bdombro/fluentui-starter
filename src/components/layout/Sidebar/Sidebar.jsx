@@ -5,6 +5,7 @@ import routeConfig from '../../../routeConfig';
 import {navCollapsedState} from "../../../state";
 import useRoutePath from '../../util/route/useRoutePath';
 import {Nav} from './Nav';
+import {clearScroll} from "../../pages/useScrollRestore";
 
 export const Sidebar = React.memo(() => {
   const history = useHistory();
@@ -56,7 +57,11 @@ export const Sidebar = React.memo(() => {
         if (window.innerWidth < 800) { // this width should match the breakpoint in Nav.styles.js
           setNavCollapsed(true);
         }
-        history.push(route.path);
+        if (window.location.pathname === route.path) {
+          clearScroll();
+        } else {
+          history.push(route.path);
+        }
       },
       isExpanded:
         deeply &&

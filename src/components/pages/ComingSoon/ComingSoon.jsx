@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import useMetaTags from 'react-metatags-hook'
+import {useScrollRestore} from "../useScrollRestore";
 
-function NoMatch({route}) {
+function ComingSoon({route}) {
+  useScrollRestore();
   useMetaTags({
     title: route.name,
     description: route.description,
@@ -35,4 +37,4 @@ function NoMatch({route}) {
   );
 }
 
-export default React.memo(NoMatch);
+export default React.memo(ComingSoon);
