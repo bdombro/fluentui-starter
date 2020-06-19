@@ -1,10 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
-import {useScrollRestore} from "../useScrollRestore";
 
 function Dashboard() {
-  useScrollRestore();
-
   return (
     <div>
       <h3>Dashboard Page</h3>

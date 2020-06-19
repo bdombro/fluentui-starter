@@ -1,9 +1,13 @@
 /**
  * Intelligent, low-sideeffect way to restore scroll position
- *
- * To use, add this somewhere next to a div that's scrollable
- *
- useEffect(() => {
+ */
+import {useEffect} from "react";
+import {useLocation} from "react-router";
+
+// TODO: Add param to indicate which element id to target.
+export function useScrollRestore() {
+  const location = useLocation();
+  useEffect(() => {
     const intervalNumber = setInterval(setScroll, 400);
     return () => clearInterval(intervalNumber);
 
@@ -14,14 +18,10 @@
       );
     }
   }, [])
- */
-import React, {useEffect} from "react";
-
-export function useScrollRestore() {
   useEffect(() => {
     const scrollLast = localStorage.getItem(`scroll-${window.location.pathname}${window.location.hash && '#' + window.location.hash}`);
     document.getElementById('scroll-div').scrollTop = scrollLast ?? 0;
-  }, []);
+  }, [location]);
 
   return {clear: clearScroll}
 }

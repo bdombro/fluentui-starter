@@ -1,9 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import useMetaTags from 'react-metatags-hook'
-import {useScrollRestore} from "../useScrollRestore";
 
 function ComingSoon({route}) {
-  useScrollRestore();
   useMetaTags({
     title: route.name,
     description: route.description,

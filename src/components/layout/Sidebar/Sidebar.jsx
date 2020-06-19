@@ -5,7 +5,7 @@ import routeConfig from '../../../routeConfig';
 import {navCollapsedState} from "../../../state";
 import useRoutePath from '../../util/route/useRoutePath';
 import {Nav} from './Nav';
-import {clearScroll} from "../../pages/useScrollRestore";
+import {clearScroll} from "../useScrollRestore";
 
 export const Sidebar = React.memo(() => {
   const history = useHistory();

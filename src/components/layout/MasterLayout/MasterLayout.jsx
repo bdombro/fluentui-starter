@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Stack, styled, classNamesFunction} from '@fluentui/react';
 import {Sidebar} from '../Sidebar';
 import {TopBar} from '../TopBar';
-import {useScroll} from "react-use";
+import {useScrollRestore} from "../useScrollRestore";
 
 const getStyles = ({theme}) => {
   return {
@@ -26,18 +26,7 @@ const getClassNames = classNamesFunction();
 
 function MasterLayoutComponent({children, theme, styles}) {
   const classNames = getClassNames(styles, {theme});
-
-  useEffect(() => {
-    const intervalNumber = setInterval(setScroll, 400);
-    return () => clearInterval(intervalNumber);
-
-    function setScroll () {
-      localStorage.setItem(
-        `scroll-${window.location.pathname}${window.location.hash && '#' + window.location.hash}`,
-        `${document.getElementById('scroll-div')?.scrollTop ?? 0}`,
-      );
-    }
-  }, [])
+  useScrollRestore();
 
   return (
     <Stack className={classNames.root}>
